@@ -2,7 +2,7 @@ const tablero = document.getElementById('tablero')
 const fragment = document.createDocumentFragment()
 let textCards = ['Frontend', 'Backend', 'JavaScript', 'CSS', 'HTML', 'NodeJS', 'MongoDB', 'MySQL', 'Frontend', 'Backend', 'JavaScript', 'CSS', 'HTML', 'NodeJS', 'MongoDB', 'MySQL']
 let boolean = false
-const cardTo = new CardTo()
+const cardTo = new CardTo(textCards.length)
 //Funciones
 
 textCards = textCards.sort(() => { return Math.random() - 0.5})
@@ -62,34 +62,28 @@ tablero.addEventListener('click', (e) => {
             e.target.parentElement.attributes.status.value = 'visible'
 
             if(boolean) {
-                cardTo.setSecondCard(card)
-                cardTo.setStyleCardtwo(e.target)
+                const parOfCards = cardTo.setSecondCardAndVerify(card, e.target)
                 boolean = false
 
-                if(cardTo.getTo()) {
-                    cardTo.setStyle()
-                } 
+                if(parOfCards) {
+                    if(cardTo.setNewPar() == 0) alert('Game Complete')
+                }
                 else {
-                    console.log('No par')
+                    cardTo.deleteAllCards()
                 }
             }
 
             else {
-                cardTo.setFirstCard(card)
-                cardTo.setStyleCardOne(e.target)
+                cardTo.setFirstCard(card, e.target)
                 boolean = true
             }
         }
         else if(status === 'visible') {
-            hiddenCard(e)
-            boolean = false
-            cardTo.firstCard = ''
-            e.target.parentElement.attributes.status.value = 'hidden'
+            console.log('Lo siento esta carta ya la pulsaste')
         }
         else {
             throw new Error('Alguien modifico un dato')
         }
-        console.log(cardTo)
     } catch (error) {
         console.log(error)
     }

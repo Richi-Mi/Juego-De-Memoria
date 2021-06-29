@@ -20,6 +20,7 @@ body {
     height: 40vh;
     width: 20vw;
     margin-top: 1.5em;
+    cursor: pointer;
 }
 .card .front,
 .card .back {
