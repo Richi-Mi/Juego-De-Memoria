@@ -42,14 +42,6 @@ const revealCard = (e) => {
 
     return cardFront.children[0].textContent
 }
-const hiddenCard = (e) => {
-    let cardFront = e.target
-    let cardBack  = e.target.parentElement.children.back
-
-    cardFront.classList.remove('active')
-
-    setTimeout(() => cardBack.classList.remove('active'), 200)
-}
 
 // Evento del Teclado 
 
@@ -66,7 +58,7 @@ tablero.addEventListener('click', (e) => {
                 boolean = false
 
                 if(parOfCards) {
-                    if(cardTo.setNewPar() == 0) alert('Game Complete')
+                    if(cardTo.setNewPar() == 0) document.getElementById('alert').classList.add('win')
                 }
                 else {
                     cardTo.deleteAllCards()
@@ -88,3 +80,5 @@ tablero.addEventListener('click', (e) => {
         console.log(error)
     }
 })
+document.getElementById('btn').addEventListener('click', () => location.reload() )
+document.getElementById('btn-alert').addEventListener('click', () => location.reload() )
