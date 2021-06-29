@@ -1,7 +1,8 @@
 const tablero = document.getElementById('tablero')
 const fragment = document.createDocumentFragment()
 let textCards = ['Frontend', 'Backend', 'JavaScript', 'CSS', 'HTML', 'NodeJS', 'MongoDB', 'MySQL', 'Frontend', 'Backend', 'JavaScript', 'CSS', 'HTML', 'NodeJS', 'MongoDB', 'MySQL']
-
+let boolean = false
+const cardTo = new CardTo()
 //Funciones
 
 textCards = textCards.sort(() => { return Math.random() - 0.5})
@@ -59,14 +60,36 @@ tablero.addEventListener('click', (e) => {
         if(status === 'hidden') {
             const card = revealCard(e)
             e.target.parentElement.attributes.status.value = 'visible'
+
+            if(boolean) {
+                cardTo.setSecondCard(card)
+                cardTo.setStyleCardtwo(e.target)
+                boolean = false
+
+                if(cardTo.getTo()) {
+                    cardTo.setStyle()
+                } 
+                else {
+                    console.log('No par')
+                }
+            }
+
+            else {
+                cardTo.setFirstCard(card)
+                cardTo.setStyleCardOne(e.target)
+                boolean = true
+            }
         }
         else if(status === 'visible') {
             hiddenCard(e)
+            boolean = false
+            cardTo.firstCard = ''
             e.target.parentElement.attributes.status.value = 'hidden'
         }
         else {
             throw new Error('Alguien modifico un dato')
         }
+        console.log(cardTo)
     } catch (error) {
         console.log(error)
     }
